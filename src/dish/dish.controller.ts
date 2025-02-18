@@ -4,7 +4,7 @@ import { Dish } from './dish.schema';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('dishes') // Tag pour regrouper les routes de plats
+@ApiTags('dishes')
 @Controller('dishes')
 export class DishController {
   constructor(private readonly dishService: DishService) {}
