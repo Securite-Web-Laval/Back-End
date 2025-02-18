@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('users')
@@ -26,10 +26,20 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Mettre à jour un utilisateur' })
   @ApiBody({
     description: 'Données de l\'utilisateur à mettre à jour',
     type: User,
+    examples: {
+      example1: {
+        value: {
+          username: 'john_doe',
+          password: 'securePassword123',
+          email: 'john_doe@gmail.com'
+        },
+      }
+    }
   })
   @ApiResponse({ status: 200, description: 'Utilisateur mis à jour avec succès.' })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé.' })
@@ -39,6 +49,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Supprimer un utilisateur' })
   @ApiResponse({ status: 200, description: 'Utilisateur supprimé avec succès.' })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé.' })

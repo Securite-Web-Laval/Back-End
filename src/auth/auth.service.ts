@@ -12,9 +12,9 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(username: string, password: string): Promise<User> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new this.userModel({ username, password: hashedPassword });
+  async register(user: User): Promise<User> {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const newUser = new this.userModel({ ...user, password: hashedPassword });
     return newUser.save();
   }
 

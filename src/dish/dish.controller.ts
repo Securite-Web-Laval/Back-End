@@ -24,7 +24,7 @@ export class DishController {
             { nom: 'Pâtes', quantite: 200, unite: 'grammes' },
             { nom: 'Sauce tomate', quantite: 150, unite: 'ml' },
           ],
-          userId: '67b160f7bf662c15ee4dd5c4'
+          user: '67b40b9aaf694dd1dcc82bbe'
         },
       },
     },
@@ -65,9 +65,9 @@ export class DishController {
             { nom: 'Pâtes', quantite: 200, unite: 'grammes' },
             { nom: 'Sauce tomate', quantite: 150, unite: 'ml' },
           ],
-          userName: 'john_doe',
-          like: ['link_zelda', 'marcus_thuram'],
-          comments: [{ userName: 'link_zelda', note: 3, description: 'Super !' }, { userName: 'marcus_thuram', note: 1, description: 'A revoir' }]
+          user: '67b40b9aaf694dd1dcc82bbe',
+          like: { total: 2, users: ['67b40e0d714f447336bbad59', '67b40e2f59178ecf3b818356'] },
+          comments: [{ user: '67b40e0d714f447336bbad59', note: 3, description: 'Super !' }, { user: '67b40e2f59178ecf3b818356', note: 1, description: 'A revoir' }]
         },
       },
     },

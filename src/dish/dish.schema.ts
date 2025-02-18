@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { User } from '../auth/user.schema';
 
 export type DishDocument = Dish & Document;
@@ -18,14 +18,23 @@ export class Ingredient {
 
 @Schema()
 export class Comment {
-  @Prop({ type: String, ref: User.name, required: true })
-  userName: string;
+  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
+  user: any;
 
   @Prop({ required: true })
   note: number;
 
   @Prop({ required: true })
   description: string;
+}
+
+@Schema()
+export class Like {
+  @Prop({ type: [Types.ObjectId], ref: User.name, required: true })
+  users: any[];
+
+  @Prop({ required: true })
+  total: number;
 }
 
 @Schema()
@@ -36,11 +45,11 @@ export class Dish {
   @Prop({ type: [Ingredient], required: true })
   ingredients: Ingredient[];
 
-  @Prop({ type: String, ref: User.name, required: true })
-  userName: string;
+  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
+  user: any;
 
-  @Prop({ type:[String], ref: User.name })
-  like: string[];
+  @Prop({ type: Like })
+  like: Like;
 
   @Prop({ type:[Comment] })
   comments: Comment[];

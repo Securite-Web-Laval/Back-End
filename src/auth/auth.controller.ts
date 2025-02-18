@@ -1,6 +1,7 @@
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { User } from './user.schema';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -24,8 +25,8 @@ export class AuthController {
   })
   @ApiResponse({ status: 201, description: 'Utilisateur créé avec succès.' })
   @ApiResponse({ status: 400, description: 'Requête invalide.' })
-  async register(@Body() body: { username: string; password: string }) {
-    return this.authService.register(body.username, body.password);
+  async register(@Body() body: User) {
+    return this.authService.register(body);
   }
 
   @Post('login')
