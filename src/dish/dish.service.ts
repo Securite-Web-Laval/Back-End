@@ -17,6 +17,10 @@ export class DishService {
     return this.dishModel.find().populate('user', '-password').populate('like.users', '-password').populate('comments.user', '-password').exec();
   }
 
+  async findDishByUser(id: string): Promise<Dish[]> {
+    return this.dishModel.find({ user: id }).populate('user', '-password').populate('like.users', '-password').populate('comments.user', '-password').exec();
+  }
+
   async findOne(id: string): Promise<Dish | null> {
     return this.dishModel.findById(id).populate('user', '-password').populate('like.users', '-password').populate('comments.user', '-password').exec();
   }
