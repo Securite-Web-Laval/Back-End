@@ -55,7 +55,7 @@ export class Dish {
   comments: Comment[];
 
   @Prop({ type: Number })
-  cookingTime?: number | undefined;
+  cookingTime: number;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

@@ -8,7 +8,7 @@ export class DishService {
   constructor(@InjectModel(Dish.name) private dishModel: Model<DishDocument>) { }
 
   async create(dishData: Dish): Promise<Dish> {
-    const dish: Dish = { ...dishData, like: { total: 0, users: [] }, comments: [], cookingTime: dishData?.cookingTime || undefined };
+    const dish: Dish = { ...dishData, like: { total: 0, users: [] }, comments: [] };
     const newDish = new this.dishModel(dish);
     return newDish.save();
   }
