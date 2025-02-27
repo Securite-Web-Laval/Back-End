@@ -49,10 +49,10 @@ export class Dish {
   user: any;
 
   @Prop({ type: Like })
-  like: Like;
+  like?: Like;
 
   @Prop({ type: [Comment] })
-  comments: Comment[];
+  comments?: Comment[];
 
   @Prop({ type: Number })
   cookingTime: number;
