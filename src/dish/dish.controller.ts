@@ -42,14 +42,6 @@ export class DishController {
     return this.dishService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Récupérer un plat par ID' })
-  @ApiResponse({ status: 200, description: 'Le plat correspondant à l\'ID.', type: Dish })
-  @ApiResponse({ status: 404, description: 'Plat non trouvé.' })
-  async findOne(@Param('id') id: string) {
-    return this.dishService.findOne(id);
-  }
-
   @Get('user/:id')
   @ApiOperation({ summary: 'Recuperer les plats par ID User' })
   @ApiResponse({ status: 200, description: 'Les plats correspondant à l\'ID User.', type: [Dish] })
@@ -118,11 +110,19 @@ export class DishController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('liked')
+  @Get('oui')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all dishes liked by current user' })
   @ApiResponse({ status: 200, description: 'List of liked dishes.', type: [Dish] })
   async getLikedDishes(@Request() req) {
     return this.dishService.findAllLikedByUser(req.user._id);
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Récupérer un plat par ID' })
+  @ApiResponse({ status: 200, description: 'Le plat correspondant à l\'ID.', type: Dish })
+  @ApiResponse({ status: 404, description: 'Plat non trouvé.' })
+  async findOne(@Param('id') id: string) {
+    return this.dishService.findOne(id);
   }
 }
