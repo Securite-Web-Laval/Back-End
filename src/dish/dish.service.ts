@@ -33,10 +33,6 @@ export class DishService {
     return this.dishModel.findByIdAndDelete(id).exec();
   }
 
-  async findAllByUser(id: string): Promise<Dish[]> {
-    return this.dishModel.find({ user: id }).populate('user', '-password').populate('like.users', '-password').populate('comments.user', '-password').exec();
-  }
-
   async likeToggle(dishId: string, userId: string): Promise<Dish | null> {
     try {
       const dish = await this.dishModel.findById(dishId);

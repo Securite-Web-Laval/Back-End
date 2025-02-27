@@ -59,16 +59,6 @@ export class DishController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('user/:id')
-  @ApiOperation({ summary: 'Récupérer tous les plats d\'un utilisateur' })
-  @ApiResponse({ status: 200, description: 'Liste des plats.', type: [Dish] })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBearerAuth()
-  async findAllByUser(@Param('id') id: string) {
-    return this.dishService.findAllByUser(id);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
   @Put(':id')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Mettre à jour un plat' })
