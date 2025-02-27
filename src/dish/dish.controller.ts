@@ -50,6 +50,14 @@ export class DishController {
     return this.dishService.findOne(id);
   }
 
+  @Get('user/:id')
+  @ApiOperation({ summary: 'Recuperer les plats par ID User' })
+  @ApiResponse({ status: 200, description: 'Les plats correspondant à l\'ID User.', type: [Dish] })
+  @ApiResponse({ status: 404, description: 'Plat non trouvé.' })
+  async findDishByUser(@Param('id') id: string) {
+    return this.dishService.findDishByUser(id);
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Get('user/:id')
   @ApiOperation({ summary: 'Récupérer tous les plats d\'un utilisateur' })
