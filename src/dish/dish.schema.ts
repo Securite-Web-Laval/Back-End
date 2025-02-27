@@ -53,6 +53,9 @@ export class Dish {
 
   @Prop({ type: [Comment] })
   comments: Comment[];
+
+  @Prop({ required: true })
+  cookingTime: number | null;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

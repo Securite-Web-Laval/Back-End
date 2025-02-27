@@ -24,7 +24,7 @@ export class DishController {
             { nom: 'Pâtes', quantite: 200, unite: 'grammes' },
             { nom: 'Sauce tomate', quantite: 150, unite: 'ml' },
           ],
-          user: '67b40b9aaf694dd1dcc82bbe'
+          user: '67b40b9aaf694dd1dcc82bbe',
         },
       },
     },
@@ -75,7 +75,8 @@ export class DishController {
           ],
           user: '67b40b9aaf694dd1dcc82bbe',
           like: { total: 2, users: ['67b40e0d714f447336bbad59', '67b40e2f59178ecf3b818356'] },
-          comments: [{ user: '67b40e0d714f447336bbad59', note: 3, description: 'Super !' }, { user: '67b40e2f59178ecf3b818356', note: 1, description: 'A revoir' }]
+          comments: [{ user: '67b40e0d714f447336bbad59', note: 3, description: 'Super !' }, { user: '67b40e2f59178ecf3b818356', note: 1, description: 'A revoir' }],
+          cookingTime: 30
         },
       },
     },
