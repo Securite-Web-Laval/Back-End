@@ -38,5 +38,5 @@ FROM base
 COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 0.0.0.0:3001
+EXPOSE 3001
 CMD [ "npm", "run", "start" ]
