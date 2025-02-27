@@ -1,13 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
-import { DishService } from './dish.service';
-import { Dish } from './dish.schema';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Dish } from './dish.schema';
+import { DishService } from './dish.service';
 
 @ApiTags('dishes')
 @Controller('dishes')
 export class DishController {
-  constructor(private readonly dishService: DishService) {}
+  constructor(private readonly dishService: DishService) { }
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
@@ -51,6 +51,16 @@ export class DishController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('user/:id')
+  @ApiOperation({ summary: 'Récupérer tous les plats d\'un utilisateur' })
+  @ApiResponse({ status: 200, description: 'Liste des plats.', type: [Dish] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBearerAuth()
+  async findAllByUser(@Param('id') id: string) {
+    return this.dishService.findAllByUser(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Put(':id')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Mettre à jour un plat' })
@@ -86,5 +96,34 @@ export class DishController {
   @ApiResponse({ status: 404, description: 'Plat non trouvé.' })
   async remove(@Param('id') id: string) {
     return this.dishService.remove(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('like/:id')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Like or unlike a dish' })
+  @ApiResponse({ status: 200, description: 'Like status toggled successfully.' })
+  @ApiResponse({ status: 404, description: 'Dish not found.' })
+  @ApiResponse({ status: 500, description: 'Internal server error.' })
+  async likeToggle(@Param('id') id: string, @Request() req) {
+    try {
+      const result = await this.dishService.likeToggle(id, req.user._id);
+      if (!result) {
+        return { statusCode: 404, message: 'Dish not found' };
+      }
+      return result;
+    } catch (error) {
+      console.error('Error toggling like:', error);
+      return { statusCode: 500, message: error.message || 'Internal server error' };
+    }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('liked')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all dishes liked by current user' })
+  @ApiResponse({ status: 200, description: 'List of liked dishes.', type: [Dish] })
+  async getLikedDishes(@Request() req) {
+    return this.dishService.findAllLikedByUser(req.user._id);
   }
 }

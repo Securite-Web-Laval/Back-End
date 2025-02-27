@@ -51,7 +51,7 @@ export class Dish {
   @Prop({ type: Like })
   like: Like;
 
-  @Prop({ type:[Comment] })
+  @Prop({ type: [Comment] })
   comments: Comment[];
 }
 
