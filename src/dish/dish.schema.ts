@@ -54,7 +54,7 @@ export class Dish {
   @Prop({ type: [Comment] })
   comments: Comment[];
 
-  @Prop()
+  @Prop({ type: Number })
   cookingTime?: number | undefined;
 }
 
