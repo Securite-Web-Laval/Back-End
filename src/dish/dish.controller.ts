@@ -110,7 +110,7 @@ export class DishController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('oui')
+  @Get('liked')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all dishes liked by current user' })
   @ApiResponse({ status: 200, description: 'List of liked dishes.', type: [Dish] })
